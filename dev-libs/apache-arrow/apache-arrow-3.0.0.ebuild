@@ -24,7 +24,7 @@ BDEPEND="
 	bzip2? ( >=app-arch/bzip2-1.0.8 )
 	zstd? ( >=app-arch/zstd-1.4.5 )
 	zlib? ( >=sys-libs/zlib-1.2.1 )
-	>=dev-python/thrift-0.12.0
+	>=dev-libs/thrift-0.12.0[cpp]
 	dev-libs/rapidjson
 	>=net-dns/c-ares-1.16.1
 	>=dev-cpp/benchmark-1.5.2
@@ -42,6 +42,7 @@ src_prepare() {
 
 src_configure () {
 	local mycmakeargs=(
+		-DARROW_DEPENDENCY_SOURCE="SYSTEM"
 		-DARROW_PARQUET=$(usex parquet ON OFF)
 		-DARROW_WITH_BZ2=$(usex bzip2 ON OFF)
 		-DARROW_WITH_LZ4=$(usex lz4 ON OFF)
